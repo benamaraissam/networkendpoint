@@ -35,7 +35,7 @@ namespace Network.Nodes
                 return nextNodeId;
             }
 
-            // return lastIndex
+            // return lastNodeId
             var lastNodeId = FindNetworkEndPoint(nextNodeId, fromIds, toIds);
 
             return lastNodeId;

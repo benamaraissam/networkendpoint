@@ -15,30 +15,30 @@ namespace Network.Nodes
         public int FindNetworkEndPoint(int startNodeId, int[] fromIds, int[] toIds)
         {
             // Index Of StartNodeId from fromIds
-            var startNodeindex = Array.FindIndex(fromIds, index => index == startNodeId);
-           
+            var startNodeindex = Array.FindIndex(fromIds, value => value == startNodeId);
+
             // If Not Found StartNodeId
             if (startNodeindex < 0)
             {
-                throw new ArgumentException(nameof(startNodeId));
+                return startNodeId;
             }
 
             // Get NextNodeId from toIds
             var nextNodeId = toIds[startNodeindex];
 
-            // Check for NextNodeId index from fromIds
-            var NextNodeIndex = Array.FindIndex(fromIds, index => index == nextNodeId);
+            // Check for NextNodeIndex index from fromIds
+            var NextNodeIndex = Array.FindIndex(fromIds, value => value == nextNodeId);
 
             // Check If Recursive loop
             if (NextNodeIndex > 0 && toIds[NextNodeIndex] == startNodeId)
             {
-                return toIds[startNodeindex];
+                return nextNodeId;
             }
 
             // return lastIndex
-            var lastIndex = FindNetworkEndPoint(nextNodeId, fromIds, toIds);
+            var lastNodeId = FindNetworkEndPoint(nextNodeId, fromIds, toIds);
 
-            return lastIndex;
+            return lastNodeId;
 
         }
     }
